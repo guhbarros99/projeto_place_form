@@ -1,10 +1,44 @@
 import 'package:flutter/material.dart';
 
 class PlaceFormScreen extends StatefulWidget {
-  const PlaceFormScreen({Key? key}) :super(key: key);
 
   @override
   State<PlaceFormScreen> createState() => _PlaceFormScreenState();
+}
+
+class _PlaceFormScreenState extends State<PlaceFormScreen>{
+  final _titleController = TextEditingController();
+  File _pickedImage;
+  LatLng _pickedPosition;
+
+  void _selectImage(File _pickedImage){
+    setState(() {
+      _pickedImage = _pickedImage;
+
+    });
+  }
+  void _selectPosition(LatLng position) {
+    setState(() {
+      _pickedPosition = position;
+    });
+  }
+
+  bool _isValidForm() {
+    return _titleController.text.isNotEmpty &&
+    _pickedImage !=null &&
+    _pickedPosition != null;
+  }
+  void _submitForm(){
+    if (! _isValidForm()) return;
+
+    Provider.of<GreatPlaces>(context, listen: false). addPlace(
+      _titleController.text,
+      _pickedImage,
+      _pickedPosition,
+    );
+
+    Navigator.of(context).pop();
+  }
 }
 
 class _PlaceFormScreenState extends State<PlaceFormScreen> {
