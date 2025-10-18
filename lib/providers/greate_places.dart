@@ -1,5 +1,9 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:projeto_3/models/place.dart';
+
 
 class GreatePlaces with ChangeNotifier {
   
@@ -15,5 +19,16 @@ class GreatePlaces with ChangeNotifier {
 
   Place itemByIndex(int index) {
     return _items[index]; //os dados retorna pelo id
+  }
+
+  void addPlace(String title, File image) {
+    final newPlace = Place(
+      id: Random().nextDouble().toString(), 
+      title: title, 
+      location: null, 
+      image: image);
+      
+      _items.add(newPlace);
+      notifyListeners();
   }
 }
